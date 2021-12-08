@@ -7,6 +7,9 @@ import { connect } from 'react-redux';
 // import action deleteMovie
 import { deleteMovie } from '../actions/movieActions';
 
+// import action addFavorite
+import { addFavorite } from '../actions/favoritesActions';
+
 const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
@@ -14,7 +17,8 @@ const Movie = (props) => {
     // update movies = [] and destructure to props, movies we get are movies passed in
     // extend movies with deleteMovie
     // extend with displayFavorites as well
-    const { movies, deleteMovie, displayFavorites } = props;
+    // extend with addFavorite
+    const { movies, deleteMovie, displayFavorites, addFavorite } = props;
     const movie = movies.find(movie=>movie.id===Number(id));
 
     // create handleDeleteClick and pass in deleteMovie with id
@@ -23,6 +27,10 @@ const Movie = (props) => {
         push('/movies');
     }
     
+    const handleFavorite = () => {
+        addFavorite(movie);
+    }
+
     return(<div className="modal-page col">
         <div className="modal-dialog">
             <div className="modal-content">
@@ -52,7 +60,7 @@ const Movie = (props) => {
                         </section>
                         
                         <section>
-                            <span className="m-2 btn btn-dark">Favorite</span>
+                            {displayFavorites && <span onClick={handleFavorite} className="m-2 btn btn-dark">Favorite</span>}
                             <span className="delete" onClick={handleDeleteClick}><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
                         </section>
                     </div>
@@ -71,4 +79,5 @@ const mapStateToProps = (state) => {
 }
 
 // add connect and pass in deleteMovie action
-export default connect(mapStateToProps, {deleteMovie})(Movie);
+// also pass in addFavorite action
+export default connect(mapStateToProps, {deleteMovie, addFavorite})(Movie);
