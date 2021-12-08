@@ -1,11 +1,15 @@
 import React from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 
+// import connect
+import { connect } from 'react-redux';
+
 const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
 
-    const movies = [];
+    // update movies = [] and destructure to props, movies we get are movies passed in
+    const { movies } = props;
     const movie = movies.find(movie=>movie.id===Number(id));
     
     return(<div className="modal-page col">
@@ -47,4 +51,12 @@ const Movie = (props) => {
     </div>);
 }
 
-export default Movie;
+// create mapStateToProps and pass into connect argument
+const mapStateToProps = (state) => {
+    return({
+        movies: state.movies
+    })
+}
+
+// add connect
+export default connect(mapStateToProps)(Movie);
