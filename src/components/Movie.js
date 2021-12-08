@@ -13,7 +13,8 @@ const Movie = (props) => {
 
     // update movies = [] and destructure to props, movies we get are movies passed in
     // extend movies with deleteMovie
-    const { movies, deleteMovie } = props;
+    // extend with displayFavorites as well
+    const { movies, deleteMovie, displayFavorites } = props;
     const movie = movies.find(movie=>movie.id===Number(id));
 
     // create handleDeleteClick and pass in deleteMovie with id
@@ -64,7 +65,8 @@ const Movie = (props) => {
 // create mapStateToProps and pass into connect argument
 const mapStateToProps = (state) => {
     return({
-        movies: state.movies
+        displayFavorites: state.favoritesReducer.displayFavorites,
+        movies: state.movieReducer.movies
     })
 }
 

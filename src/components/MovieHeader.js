@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const MovieHeader = (props) => {
     const { appTitle } = props;
-    const displayFavorites = true;
+    const { displayFavorites } = props;
     
     return(<div className="table-title">
         <div className="row">
@@ -21,9 +21,12 @@ const MovieHeader = (props) => {
 }
 
 // create mapStateToProps and pass into connect argument, connect to appTitle
+// change state to state.movieReducer.appTitle
+// Connect the displayFavorites state to the MovieHeader component
 const mapStateToProps = (state) => {
     return ({
-        appTitle: state.appTitle
+        displayFavorites: state.favoritesReducer.displayFavorites,
+        appTitle: state.movieReducer.appTitle
     })
 }
 

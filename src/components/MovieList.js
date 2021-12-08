@@ -35,9 +35,10 @@ const MovieList = (props)=> {
 }
 
 // create mapStateToProps to add movies to props
+// upon combining reducers, movies will not be obtained by state, must update state.movies to state.movieReducer.movies
 const mapStateToProps = (state) => {
     return ({
-        movies: state.movies
+        movies: state.movieReducer.movies
     })
 }
 
