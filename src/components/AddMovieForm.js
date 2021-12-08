@@ -12,7 +12,7 @@ const AddMovieForm = (props) => {
         director: "",
         genre: "",
         metascore: 0,
-        description:""
+        description: ""
     });
 
     const handleChange = (e) => {
@@ -23,6 +23,10 @@ const AddMovieForm = (props) => {
     }
 
     const handleSubmit = (e) => {
+        // form -> add event object to prevent default and push to movies
+        e.preventDefault();
+        props.addMovie(movie);
+        push('/movies')
     }
 
     const { title, director, genre, metascore, description } = movie;
@@ -67,4 +71,5 @@ const AddMovieForm = (props) => {
     </div>);
 }
 
-export default AddMovieForm;
+// add connect, pass in null as props as there is no data being displayed to state
+export default connect(null, {addMovie})(AddMovieForm);

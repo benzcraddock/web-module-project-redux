@@ -4,13 +4,23 @@ import { useParams, useHistory } from 'react-router-dom';
 // import connect
 import { connect } from 'react-redux';
 
+// import action deleteMovie
+import { deleteMovie } from '../actions/movieActions';
+
 const Movie = (props) => {
     const { id } = useParams();
     const { push } = useHistory();
 
     // update movies = [] and destructure to props, movies we get are movies passed in
-    const { movies } = props;
+    // extend movies with deleteMovie
+    const { movies, deleteMovie } = props;
     const movie = movies.find(movie=>movie.id===Number(id));
+
+    // create handleDeleteClick and pass in deleteMovie with id
+    const handleDeleteClick = () => {
+        deleteMovie(movie.id);
+        push('/movies');
+    }
     
     return(<div className="modal-page col">
         <div className="modal-dialog">
@@ -42,7 +52,7 @@ const Movie = (props) => {
                         
                         <section>
                             <span className="m-2 btn btn-dark">Favorite</span>
-                            <span className="delete"><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
+                            <span className="delete" onClick={handleDeleteClick}><input type="button" className="m-2 btn btn-danger" value="Delete"/></span>
                         </section>
                     </div>
                 </div>
@@ -58,5 +68,5 @@ const mapStateToProps = (state) => {
     })
 }
 
-// add connect
-export default connect(mapStateToProps)(Movie);
+// add connect and pass in deleteMovie action
+export default connect(mapStateToProps, {deleteMovie})(Movie);
